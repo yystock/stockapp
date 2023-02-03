@@ -2,13 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
 import { signUpWithEmailAndPassword } from '../firebase/Firebase';
 import { AuthContext } from '../firebase/Auth';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import logo from '../logo.svg';
+import {Container,Row,Col,Card,Button,Form} from 'react-bootstrap';
+import logo from './logo.svg';
+import { getUsers, addUsers } from '../utils/account';
 
 function SignUp() {
  
@@ -28,6 +24,7 @@ function SignUp() {
         name.value,
         email.value,
         passwordOne.value,
+        
       );
       
     } catch (error) {
@@ -35,33 +32,24 @@ function SignUp() {
     }
   };
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (currentUser) navigate("/dashboard");
-  }, [currentUser, loading]);
-  // if (currentUser) {
-    // async function fetchData(){
-    //   console.log('function running')
-    //   try{
-    //     const user = await axios.get(`http://localhost:3008/users/${currentUser.uid}`)          
-    //     console.log(user)
-    //    }catch(e){
-    //     if(e.response.status === 404){
-    //       console.log('add to moongo')
-    //     const newUser = {
-    //       uid: currentUser.uid
-    //     }
-    //     console.log(newUser)
-    //     await axios.post('http://localhost:3008/users', newUser)
+    if (currentUser) {
+      async function fetchData(){
+ 
+        const response = await getUsers(currentUser.uid);  
+        console.log(response)  
+        if(response.response.status === 404){
+          const newUser = {
+            uid: currentUser.uid
+          }
+          addUsers(newUser);
+        }
         
-    //     }
-    //   }
-    // } 
-    // fetchData()
-  //   return navigate("/dashboard");
-  // }
+        return navigate("/dashboard/main");
+      } 
+      fetchData();
+      
+    }
+  }, [currentUser])
 
   return (
     <Container fluid className="login-wrapper">

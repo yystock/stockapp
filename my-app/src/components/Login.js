@@ -1,35 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import GoogleSignIn from './GoogleSignIn';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../firebase/Auth';
-import '../App.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
-import logo from '../logo.svg';
+import {Container, Row, Col, Card, Button, Form} from 'react-bootstrap';
+import { getUsers, addUsers } from '../utils/account';
 import {
   logInWithEmailAndPassword,
   signInWithGoogle,
   sendPasswordReset
 } from '../firebase/Firebase';
+import logo from './logo.svg';
 
-
-function Login(props) {
+function Login() {
     const { currentUser, loading } = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     
     useEffect(() => {
-      if (loading) {
-        // maybe trigger a loading screen
-        return;
+      if (currentUser) {
+        async function fetchData(){
+          const response = await getUsers(currentUser.uid)          
+          if(response.response.status === 404){
+            const newUser = {
+              uid: currentUser.uid
+            }
+            console.log(newUser)
+            addUsers(newUser);
+          }
+        } 
+        fetchData();
+        return navigate("/dashboard/main");
       }
-      if (currentUser) navigate("/dashboard");
     }, [currentUser, loading]);
     return (
       <Container fluid className="login-wrapper">
@@ -37,7 +38,7 @@ function Login(props) {
           <Col lg xl = "6">
             <div className="text-center">
                 <a href="/">
-                  <img src={logo} alt="" width="100"/>
+                  <img src={logo} />
                 </a>
             </div>
           </Col>

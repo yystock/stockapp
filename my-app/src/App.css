@@ -1,16 +1,176 @@
-/* .App {
+.landing-page{
+  height:100vh;
+  /* background-image: url("../public/stock.jpg"); */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../public/stock.jpg");
+}
+.landing-content{
+  padding: 15rem 0 5rem 0;
   text-align: center;
+}
+h1, h4{
+  color:#F5FF00;
+}
+a:link {
+  color: white;
+  text-decoration: none;
+}
+a:hover{
+  color: #F5FF00;
+  text-decoration: none;
+}
+div{
+  color:white;
+}
+p{
+  color: #ffffff;
+  margin-bottom: 0vh !important;
+  padding-bottom: 0vh;
+}
+body{
+  color:#ffffff;
+  background-color: black !important;
+}
+.user-nav-container{
+  z-index: 2;
+}
+.sidebar-container{
+  background-color: #000000;
+  z-index: 1;
+  width: 16%;
+	height: 100vh;
+	position: fixed;
+  align-items: left;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);;
+  border-top-right-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transform: translateX();
+  transition: transform 0.3s ease-out;
+}
+.sidebar-header{
+  height:15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left:20%;
+}
+.close-b{
+  background-color: transparent !important;
+  border: none !important;
+  align-self: flex-start;
+ 
+}
+.sidebar-container-n{
+  width: 6%;
+}
+.layout{
+  width: 100%;
+}
+.page{
+  width: 90%;
+}
+
+.main-content{
+  margin-left: 10%;
+  margin-right: 20%;
+  width: 100%;
+}
+.sidebar-items{
+  height:85vh;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2vw;
+  align-items: left;
+}
+.sidebar-link{
+  color:white;
+  text-decoration: none;
+  margin-top:3vh;
+  padding-right: 30px;
+  display: inline-flex;
+}
+.sidebar-link p{
+  margin-left: 1vw;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.sidebar-link:hover >*{
+  color: #F5FF00;
+}
+.sidebar-link.active >*{
+  color: #F5FF00;
+}
+
+nav .nav-link {
+  color: white !important;
+  white-space: nowrap;
+}
+nav .nav-link:hover{
+  color: #F5FF00 !important;
+}
+nav .nav-link:visited{
+  color: white !important;
+}
+
+nav .nav-link:hover >*{
+  color: #F5FF00;
+}
+nav .nav-link:hover > p{
+  color: #F5FF00;
+}
+/* nav .nav-link:active >*{
+  color: #F5FF00; 
+} */
+/* nav .nav-link.active >*{
+  color: #F5FF00; 
 } */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .dropdown.collapse >*{
+  color: #F5FF00 !important;
+} */
+/* .dropdown.show >*{
+  color: #F5FF00 !important;
+} */
+
+.menu-b {
+	background-color: transparent !important;
+  border: none !important;
+  margin-top: 2vh;
 }
-.nav-items > *{
-  color: white;
-  text-decoration: none;  
-  margin-left: 30px;
+
+.nav-items > *{ 
+  margin-left: 10%;
 }
+.nav-premium{
+  background-color: #F5FF00;
+  border-radius: 15px;
+}
+.nav-premium p{
+  color:black;
+}
+/* User Nav */
+.dropdown-watchlist{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dropdown-holdings{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dropdown-menu.show{
+  background-color:#151519;
+  padding: 15px;
+  border-radius: 15px;
+}
+.modal-dialog{
+  background-color:#151519;
+  padding: 15px;
+  border-radius: 25px;
+}
+/* end */
+
 .error {
   font-weight: bold;
   color: red !important;
@@ -22,32 +182,210 @@
   width: 100vh;
 }
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
+/* Dashboard Page*/
 
-
-/* .App-header {
-  background-color: white;
-  min-height: 100vh;
+.dashboard{
+  width:95%;
+}
+.line_chart{
+  margin-top: 1%;
   display: flex;
+  justify-content: flex-start;
+}
+.line_chart div{
+  padding-top: 1%;
+  padding-right: 1%;
+  width: 102%;
+  margin-right: 2%;
+  padding-left: 1%;
+  padding-bottom: 2%;
+  background-color: #151519;
+  border-radius: 25px;
+}
+/* recommendation */
+.live-data{
+  width:100%;
+  position: relative;
+  display:flex;
+  justify-content: flex-start;
+  animation: scroll 20s infinite linear;
+}
+.stock-ticker{
+  position: relative;
+  display:flex;
+  margin-left:5%;
+}
+.stock-ticker p{
+  margin-left:5%;
+}
+@keyframes scroll {
+  from{
+    left: 120%;
+  }  
+  to{
+    left: -20%;
+  }
+}
+/*end*/
+/* sector-heatmap */
+.sector-heatmap{
+  margin-top: 3%;
+  background-color: #151519;
+  width: 100%;
+  padding: 2%;
+  border-radius: 25px;
 
-  justify-content: space-between;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-.App-link {
-  color: #61dafb;
+} 
+.gainers-losers{
+  margin-top: 2%;
+  width: 100%;
+  display:flex;
+  justify-content: flex-start;
+}
+.gainers{
+  width:100%;
+  margin-right: 2%;
+}
+.losers{
+  width:100%;
+}
+.dashboard-sector{
+ 
+  width: 100%;
+  margin-top: 2%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* end */
+
+/* Market Page */
+.time_dropdown{
+  width: 10%;
+  background-color: black;
+  color:white;
+}
+.stock-chart{
+  margin-top: 3%;
+  width: 100%;
+}
+
+/* end */
+/* search */
+.search-form{
+  width:80%;
+  margin-bottom: 3%;
+}
+.search-button{
+  background-color: transparent !important;
+  border: none !important;
+
+}
+/* end */
+/* Stock Page */
+.stock-chart-area{
+  width: 95%;
+}
+.info-section{
+  display:flex;
+  justify-content: start;
+}
+.info-section div{
+  background-color: #151519;
+  padding: 20px;
+  margin-right: 3%;
+}
+.compare-chart{
+  margin-top:2%;
+  width:95%
+}
+.stock-table{
+  display:flex;
+}
+.stock-table div{
+  width: 45%;
+  margin-right:3%;
+}
+/* End */
+/* Option Page */
+.option-section{
+  width: 80%;
+}
+.option-item{
+  background-color: #151519;
+  cursor: pointer;
+}
+.option-title {
+  padding: 12px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+.btn-active{
+  background-color: #F5FF00;
+  color: black;
+  padding: 15px;
+  width: 50%;
+}
+.btn-inactive{
+  background-color: #151519;
+  color: white;
+  width: 50%;
+  padding: 15px;
+}
+.option-flowbar{
+  width:90%;
+  margin-top: 3vh;
+}
+/* end */
+/* Sector Page */
+.sector-page{
+  display: flex;
+}
+.sector-left{
+  flex-direction: column; 
+  width: 70%;
+  margin-right: 3%;
+}
+.sector-left div{
+  margin-bottom: 3%;
+  border-radius: 25px;
+}
+.sector-intraday{
+  margin-top: 3%;
+}
+.sector-item{
+  background-color: #151519;
+  cursor: pointer;
+}
+.sector-title {
+  padding: 12px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+.sector-performance{
+  margin-left: 3%;
+}
+.expand-button{
+  margin-left: auto;
+}
+.sector-item:hover {
+  background-color: blue;
+}
+
+/* News Section */
+
+.news-section{
+  display: flex;
+  /* justify-content: flex-start; */
+  width: 90%;
+}
+.av-news{
+  width: 75%;
+  margin-left: 3%;
+}
+/* end */
+
+/* premium page */
+.premium-page{
+  padding: 7.5rem 0 5rem 0;
 }

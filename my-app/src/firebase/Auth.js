@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {auth} from './Firebase';
-import axios from 'axios';
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      console.log("2")
       setLoading(false);
     });   
     

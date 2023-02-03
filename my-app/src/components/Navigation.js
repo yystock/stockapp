@@ -1,83 +1,61 @@
-import React, { useContext } from 'react';
-import logo from '../logo.svg';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { Link,  useLocation } from 'react-router-dom';
 import { AuthContext } from '../firebase/Auth';
-import '../App.css';
 import { logout } from '../firebase/Firebase';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Container from 'react-bootstrap/Container';
-
-const SignOutButton = () => {
-  return (
-    <button type="button" onClick={logout}>
-      Sign Out
-    </button>
-  );
-};
+import {Nav, Navbar, NavDropdown, Container, Image} from 'react-bootstrap';
+import logo from './logo.svg';
 
 const Navigation = () => {
   const { currentUser } = useContext(AuthContext);
-  
-  
-  return <div>{currentUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>;
-};
-
-const NavigationAuth = () => {
-  const { currentUser } = useContext(AuthContext);
-  console.log("Nav:", currentUser)
-  console.log(currentUser.displayName)
-  return (
-    <Navbar bg="dark" variant="dark">
-      
-      <Container>
-        <Navbar.Brand href = "/">
-        <img src={logo} 
-              width="40"
-              height="40"
-              className="d-inline-block align-top" 
-              alt="logo" />
-        </Navbar.Brand>
-          {/* <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-          <Navbar.Collapse id="basic-navbar-nav"> */}
-            
-              <Nav className="nav-items ms-auto my-1 align-items-center">
-           
-              <Link to="/">Landing</Link>
-              <Link to="/home">Home</Link>
-              <NavDropdown className="text-light" title={currentUser.displayName} >
-                <NavDropdown.Item href="/login">Account</NavDropdown.Item>
-                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+  const [showNavbar, setShowNavbar] = useState(true);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === '/login' || location.pathname === '/signup') {
+        setShowNavbar(false);
+    } else {
+        setShowNavbar(true);
+    }
+}, [location]);
+  return (showNavbar ? 
+          <div> {currentUser ? 
+            <Navbar fixed="top" bg="dark">
+              <Container>
+                <Navbar.Brand href = "/">
+                <img src={logo}
+                      width="40"
+                      height="40"
+                      alt="logo" />
+                </Navbar.Brand>
+        
+                <Nav className="nav-items ms-auto my-1 align-items-top">
+                <Nav.Link as={Link} to="/premium" className='nav-premium'><p>Premium</p></Nav.Link>
                 
-                
-              </NavDropdown>
-
-              </Nav>
-            
-          {/* </Navbar.Collapse> */}
-      </Container>
-    </Navbar>
-
-  );
+                <NavDropdown className="text-light" title={currentUser.displayName} >
+                  <NavDropdown.Item href="/account"><p>Account</p></NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}><p>Logout</p></NavDropdown.Item>          
+                </NavDropdown>     
+                </Nav>
+        
+              </Container>
+            </Navbar> : <NavigationNonAuth />}</div>
+          : null);
 };
 
 const NavigationNonAuth = () => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar fixed="top" bg="dark">
         <Container>
           <Navbar.Brand href="/">
           <img
               src={logo}
               width="40"
               height="40"
-              className="d-inline-block align-top"
               alt="logo"
             /></Navbar.Brand>
           <Nav className="nav-items">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            
+            <Nav.Link as={Link} to="/premium" className='nav-premium'><p>Premium</p></Nav.Link>
+            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
